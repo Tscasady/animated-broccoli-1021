@@ -5,7 +5,10 @@ University: <%= @doctor.university %>
 Hospital: <%= @doctor.hospital.name %>
 <div id="patients">
   <% @doctor.patients.each do |patient| %>
-    <%= patient.name %>
-    <br>
+    <div id="patient_<%=patient.id%>">
+      <%= patient.name %>
+      <%= button_to "Remove Patient", doctor_path(@doctor), method: :update %>
+      <br>
+    </div>
   <% end %>
 </div>
