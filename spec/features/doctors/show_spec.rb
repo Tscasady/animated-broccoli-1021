@@ -5,9 +5,13 @@ RSpec.describe 'The doctor show page', type: :feature do
     
     let!(:hospital_1) { Hospital.create!(name: "Grey Sloan") }
     let!(:doctor_1) { hospital_1.doctors.create!(name: "George", specialty: "Emergency Medicine", university: "Harvard") }
+    let!(:doctor_2) { hospital_1.doctors.create!(name: "Mer", specialty: "General", university: "John Hopkins") }
     let!(:patient_1) { doctor_1.patients.create!(name: "Tim", age: 8) }
     let!(:patient_2) { doctor_1.patients.create!(name: "Joan", age: 32) }
     let!(:patient_3) { doctor_1.patients.create!(name: "Bob", age: 54) }
+    let!(:doctor_patient_1) { DoctorPatient.create!(doctor: doctor_2, patient: patient_1) }
+    let!(:doctor_patient_2) { DoctorPatient.create!(doctor: doctor_2, patient: patient_2) }
+    let!(:doctor_patient_3) { DoctorPatient.create!(doctor: doctor_2, patient: patient_3) }
 
     it 'displays the doctors name, specialty, university and hospital' do
       visit doctor_path(doctor_1)
@@ -53,6 +57,30 @@ RSpec.describe 'The doctor show page', type: :feature do
         end
 
         expect(current_path).to eq doctor_path(doctor_1)
+      end
+
+      it 'does not effect another doctors patients' do
+        visit doctor_path(doctor_2)
+
+        within("#patients") do
+          expect(page).to have_content "Tim"
+        end
+
+        visit doctor_path(doctor_1)
+        
+        within("#patients") do
+          expect(page).to have_content "Tim"
+        end
+
+        within("#patient_#{patient_1.id}") do
+          click_button "Remove Patient"
+        end
+
+        visit doctor_path(doctor_2)
+
+        within("#patients") do
+          expect(page).to have_content "Tim"
+        end
       end
     end
   end

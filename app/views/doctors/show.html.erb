@@ -1,8 +1,8 @@
 <h2>Doctor Info</h2>
-Name: <%= @doctor.name %>
-Specialty: <%= @doctor.specialty %>
-University: <%= @doctor.university %>
-Hospital: <%= @doctor.hospital.name %>
+Name: <%= @doctor.name %><br>
+Specialty: <%= @doctor.specialty %><br>
+University: <%= @doctor.university %><br>
+Hospital: <%= @doctor.hospital.name %><br>
 <div id="patients">
   <% @doctor.patients.each do |patient| %>
     <div id="patient_<%=patient.id%>">
