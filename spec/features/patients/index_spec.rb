@@ -27,7 +27,7 @@ RSpec.describe 'The patient index page', type: :feature do
 
     it 'displays the names in alphabetical order' do
       visit patients_path
-save_and_open_page
+      
       expect(patient_5.name).to appear_before patient_3.name
       expect(patient_3.name).to appear_before patient_2.name
     end
