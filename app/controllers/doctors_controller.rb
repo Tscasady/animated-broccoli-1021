@@ -5,7 +5,7 @@ class DoctorsController < ApplicationController
   end
 
   def update
-    @doctor_patient = DoctorPatient.find_by(doctor: params[:id], patient: params[:patient_id])
+    @doctor_patient = DoctorPatient.find_by(doctor: @doctor, patient: params[:patient_id])
     @doctor_patient.destroy
     redirect_to doctor_path
   end
