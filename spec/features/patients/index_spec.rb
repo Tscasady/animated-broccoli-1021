@@ -8,6 +8,8 @@ RSpec.describe 'The patient index page', type: :feature do
   let!(:patient_1) { doctor_1.patients.create!(name: "Tim", age: 8) }
   let!(:patient_2) { doctor_1.patients.create!(name: "Joan", age: 32) }
   let!(:patient_3) { doctor_1.patients.create!(name: "Bob", age: 54) }
+  let!(:patient_4) { doctor_2.patients.create!(name: "Tina", age: 18) }
+  let!(:patient_5) { doctor_2.patients.create!(name: "Bill", age: 19) }
   let!(:doctor_patient_1) { DoctorPatient.create!(doctor: doctor_2, patient: patient_1) }
   let!(:doctor_patient_2) { DoctorPatient.create!(doctor: doctor_2, patient: patient_2) }
   let!(:doctor_patient_3) { DoctorPatient.create!(doctor: doctor_2, patient: patient_3) }
@@ -18,11 +20,16 @@ RSpec.describe 'The patient index page', type: :feature do
 
       expect(page).to have_content "#{patient_2.name}"
       expect(page).to have_content "#{patient_3.name}"
+      expect(page).to have_content "#{patient_5.name}"
       expect(page).to_not have_content "#{patient_1.name}"
+      expect(page).to_not have_content "#{patient_4.name}"
     end
 
-    xit 'displays the names in alphabetical order' do
+    it 'displays the names in alphabetical order' do
       visit patients_path
+save_and_open_page
+      expect(patient_5.name).to appear_before patient_3.name
+      expect(patient_3.name).to appear_before patient_2.name
     end
   end
 end
