@@ -7,7 +7,7 @@ Hospital: <%= @doctor.hospital.name %>
   <% @doctor.patients.each do |patient| %>
     <div id="patient_<%=patient.id%>">
       <%= patient.name %>
-      <%= button_to "Remove Patient", doctor_path(@doctor), method: :update %>
+      <%= button_to "Remove Patient", doctor_path(@doctor), method: :patch, params: {patient_id: patient.id} %>
       <br>
     </div>
   <% end %>
