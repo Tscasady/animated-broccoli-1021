@@ -3,3 +3,9 @@ Name: <%= @doctor.name %>
 Specialty: <%= @doctor.specialty %>
 University: <%= @doctor.university %>
 Hospital: <%= @doctor.hospital.name %>
+<div id="patients">
+  <% @doctor.patients.each do |patient| %>
+    <%= patient.name %>
+    <br>
+  <% end %>
+</div>
