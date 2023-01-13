@@ -27,5 +27,15 @@ RSpec.describe 'The doctor show page', type: :feature do
         expect(page).to have_content "#{patient_3.name}"
       end
     end
+
+    describe "Remove Patients" do
+      it 'has a button next to each patient to remove that patient from the doctor' do
+        visit doctor_path(doctor_1)
+
+        within("#patients") do
+          expect(page).to have_button "Remove Patient", count: doctor_1.patients.length
+        end
+      end
+    end
   end
 end
