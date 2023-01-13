@@ -15,11 +15,11 @@ RSpec.describe 'The doctor show page', type: :feature do
       expect(page).to have_content "Name: #{doctor_1.name}"
       expect(page).to have_content "Specialty: #{doctor_1.specialty}"
       expect(page).to have_content "University: #{doctor_1.university}"
-      expect(page).to have_content "Hospital: #{doctor_1.hospital}"
+      expect(page).to have_content "Hospital: #{doctor_1.hospital.name}"
     end
 
     xit 'displays the name of all patients a doctor has' do
-      visit doctor_path(doctor_1)
+      visit hospital_doctor_path(doctor_1)
 
     end
   end
